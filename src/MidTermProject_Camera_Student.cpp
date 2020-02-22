@@ -15,6 +15,7 @@
 
 #include "dataStructures.h"
 #include "matching2D.hpp"
+#include "ring_buffer.h"
 
 using namespace std;
 
