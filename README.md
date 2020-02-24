@@ -32,3 +32,45 @@ See the classroom instruction and code comments for more details on each of thes
 2. Make a build directory in the top level directory: `mkdir build && cd build`
 3. Compile: `cmake .. && make`
 4. Run it: `./2D_feature_tracking`.
+
+##Mid Term Report
+## MP.1 Data Buffer optimization.
+1. I have implemented ring buffer in RingBuffer.h and tested using ring_buffer_test.cpp
+2. Please define CUSTOM_BUFFER on the top to toggle between deque and custom ring buffer
+3. #define CUSTOM_BUFFER uncomment in line number 22 in  MidTermProject_Camera_Student.cpp 
+
+## MP.2 Keypoint Detection
+1. Implemented key point detector in function calcKeyPointsHelper()
+2. This function detects the keypoints 
+3. Line number 130-138 in  MidTermProject_Camera_Student.cpp can be used to select the detector type. 
+
+##MP.3 Keypoint Removal
+1. cropFeatures(vector<cv::KeyPoint> &keypoints) function does this in line number 61 in  MidTermProject_Camera_Student.cpp
+
+## MP.4 Keypoint Descriptors
+1. Line number 140 to 146 in  MidTermProject_Camera_Student.cpp does implemnet this
+## MP.5 Descriptor Matching
+1. matchDescriptors() in matching2D_student.cpp implements this
+
+## MP.6 Descriptor Distance Ration
+1. Line number 66 to 73 in matching2D_student.cpp implements this. 
+
+## MP.7 Performance Evaluation 1
+1. FAST
+2. BRISK
+3. AKAZE
+The top three are above. More details on SF_2D_tracking_performance_evaluation.xls attached with the project. 
+## MP.8 Perf Evalaution 2
+Please find the deatils on SF_2D_tracking_performance_evaluation.xls  attached with this project.
+FAST  with ORB gave best results. 
+
+## MP.9 Perf Evaluation 3
+FAST with the following descriptors is fast as per the attached excel sheet SF_2D_tracking_performance_evaluation.xls
+so this is best for our project. 
+1. BRISK
+2. BRIEF
+3. ORB
+
+
+
+
