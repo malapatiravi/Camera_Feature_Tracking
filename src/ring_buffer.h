@@ -13,24 +13,24 @@ template <typename T, size_t size_rb>
 class RingBuffer
 {
 public:
+    typedef T value_type;
     RingBuffer();
     ~RingBuffer();
     void Clear();
     bool Push(const T &data_rb);
     T PopFront();
     size_t UnReaddataSize();
-    void incReadIndex();
-    void incWriteIndex();
-    void incBufferSize();
-    typedef T value_type;
+    size_t size();
+    T* GetEnd(int num);
 
+private:
     T buffers_rb[size_rb];
     size_t used_buffers_size;
     size_t next_write_index;
     size_t next_read_index;
-
-    size_t size();
-    
+    void incReadIndex();
+    void incWriteIndex();
+    void incBufferSize();
 };
 
 template <typename T, size_t size_rb>
@@ -126,10 +126,76 @@ size_t RingBuffer<T, size_rb>::UnReaddataSize()
     return used_buffers_size;
 }
 
-
 template <typename T, size_t size_rb>
 size_t RingBuffer<T, size_rb>::size()
 {
     return used_buffers_size;
+}
+
+// template <typename T, size_t size_rb>
+// T* RingBuffer<T, size_rb>::GetEnd1(int num)
+// {
+//     T *ret_data;
+//     if(next_read_index == -1)
+//         next_read_index = 0;
+    
+//     //std::cout<<"Camer in get end with value"<<num<<std::endl;
+//     if(num == 0)
+//     {
+//         ret_data = &buffers_rb[next_read_index];
+//     }
+//     else
+//     {
+//         if(next_read_index+num < size_rb)
+//         {
+//             ret_data = &buffers_rb[next_read_index+num];
+//         }
+//         else if(next_read_index+num >= size_rb)
+//         {
+//             while(next_read_index+num >= size_rb)
+//                 num = (next_read_index+num) - size_rb;
+//             ret_data = &buffers_rb[num];
+//         }
+//         else
+//         {
+//           throw "Ring bugger Get Eng function trying to do something that's impossible";  
+//         }
+//     }
+//     std::cout<<"Read index is "<<num<<std::endl;
+//     //std::cout<<"Exit Cmae here "<<used_buffers_size<<std::endl;
+//     return ret_data;
+// }
+template <typename T, size_t size_rb>
+T* RingBuffer<T, size_rb>::GetEnd(int num)
+{
+    T *ret_data;
+    if(next_write_index == -1)
+        next_write_index = 0;
+    
+    //std::cout<<"Camer in get end with value"<<num<<std::endl;
+    if(num == 0)
+    {
+        ret_data = &buffers_rb[next_write_index];
+    }
+    else
+    {
+        if(next_write_index+num < size_rb)
+        {
+            ret_data = &buffers_rb[next_write_index+num];
+        }
+        else if(next_write_index+num >= size_rb)
+        {
+            while(next_write_index+num >= size_rb)
+                num = (next_write_index+num) - size_rb;
+            ret_data = &buffers_rb[num];
+        }
+        else
+        {
+          throw "Ring bugger Get Eng function trying to do something that's impossible";  
+        }
+    }
+    std::cout<<"Read index is "<<num<<std::endl;
+    //std::cout<<"Exit Cmae here "<<used_buffers_size<<std::endl;
+    return ret_data;
 }
 #endif
